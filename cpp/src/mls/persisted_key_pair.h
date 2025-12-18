@@ -13,7 +13,7 @@
 
 namespace mlspp {
 struct SignaturePrivateKey;
-};
+}
 
 namespace discord {
 namespace dave {
