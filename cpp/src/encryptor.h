@@ -51,6 +51,12 @@ public:
     }
     virtual ProtocolVersion GetProtocolVersion() const override { return currentProtocolVersion_; }
 
+    // custom addition to be able to break reference cycles
+    ProtocolVersionChangedCallback GetProtocolVersionChangedCallback()
+    {
+        return protocolVersionChangedCallback_;
+    }
+
 private:
     std::unique_ptr<OutboundFrameProcessor> GetOrCreateFrameProcessor();
     void ReturnFrameProcessor(std::unique_ptr<OutboundFrameProcessor> frameProcessor);
