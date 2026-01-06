@@ -80,6 +80,9 @@ public:
       std::string const& userId,
       PairwiseFingerprintCallback callback) const noexcept override;
 
+    // custom addition to be able to break reference cycles
+    MLSFailureCallback GetMLSFailureCallback() { return onMLSFailureCallback_; }
+
 private:
     void InitLeafNode(std::string const& selfUserId,
                       std::shared_ptr<::mlspp::SignaturePrivateKey>& transientKey) noexcept;
