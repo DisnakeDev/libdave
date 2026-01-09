@@ -83,6 +83,10 @@ public:
     // custom addition to be able to break reference cycles
     MLSFailureCallback GetMLSFailureCallback() { return onMLSFailureCallback_; }
 
+    // yet another custom addition, being able to tell whether we have an *established*
+    // MLS group helps avoid overzealous error logs
+    bool HasEstablishedGroupState() { return currentState_ != nullptr; }
+
 private:
     void InitLeafNode(std::string const& selfUserId,
                       std::shared_ptr<::mlspp::SignaturePrivateKey>& transientKey) noexcept;
