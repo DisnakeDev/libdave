@@ -192,8 +192,8 @@ target_include_directories(
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
 )
 
-target_link_libraries(${LIB_NAME} PRIVATE OpenSSL::Crypto)
-target_link_libraries(${LIB_NAME} PRIVATE MLSPP::mlspp)
+target_link_libraries(${LIB_NAME} PUBLIC OpenSSL::Crypto)
+target_link_libraries(${LIB_NAME} PUBLIC MLSPP::mlspp)
 
 if (APPLE AND PERSISTENT_KEYS)
   target_link_libraries(${LIB_NAME} PUBLIC "-framework CoreFoundation" "-framework Security")
