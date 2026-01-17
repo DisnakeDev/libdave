@@ -29,15 +29,16 @@ elseif(MSVC)
   add_compile_options(/W4 /WX)
   add_definitions(-DWINDOWS)
 
-  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+  # set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
   # MSVC helpfully recommends safer equivalents for things like
   # getenv, but they are not portable.
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
-  if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-  endif()
+  # Doesn't work with multi-config generators (MSVC), unless explicitly set (which is an antipattern)
+  # if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+  #   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+  # endif()
 endif()
 
 # Configure sanitizers
@@ -198,8 +199,8 @@ target_include_directories(
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
 )
 
-target_link_libraries(${LIB_NAME} PRIVATE OpenSSL::Crypto)
-target_link_libraries(${LIB_NAME} PRIVATE MLSPP::mlspp)
+target_link_libraries(${LIB_NAME} PUBLIC OpenSSL::Crypto)
+target_link_libraries(${LIB_NAME} PUBLIC MLSPP::mlspp)
 
 if (APPLE AND PERSISTENT_KEYS)
   target_link_libraries(${LIB_NAME} PUBLIC "-framework CoreFoundation" "-framework Security")
